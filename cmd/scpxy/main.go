@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version        = "0.2.0"
+	version        = "0.1.0"
 	defaultCfgPath = "config.toml"
 	usageText      = `SCPxy %s — a proxy for SCP: Secret Laboratory
 
