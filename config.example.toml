@@ -1,0 +1,71 @@
+# SCPxy — example configuration
+# Copy this file to config.toml and adjust it.
+# Validate your changes with:  scpxy check
+
+[proxy]
+# Address and port players connect to.
+bind = "0.0.0.0:7777"
+
+# The address you hand out to players. Informational only: it shows up on the
+# dashboard and in error messages, and "scpxy check" warns you if it does not
+# resolve to this machine.
+# public_address = "connect.example.com:7777"
+
+# Append the player's real IP to the PreAuth so the backend sees it.
+# Requires this in the backend's config_gameplay.txt:
+#   enable_proxy_ip_passthrough: true
+#   trusted_proxies_ip_addresses: <PROXY IP>
+# If the proxy and the game server share a machine and talk over loopback,
+# the trusted address is 127.0.0.1, not the VPS public IP.
+ip_passthrough = true
+
+# Global concurrent player cap. 0 means unlimited.
+max_players = 0
+
+# debug | info | warn | error
+log_level = "info"
+
+# How long to wait for the backend to accept before giving up.
+handshake_timeout = "10s"
+
+# true = no interactive dashboard, logs to stdout (systemd, docker).
+# The --headless flag forces this too.
+headless = false
+
+# Log every relayed message and every rejected packet, with direction, channel,
+# delivery method, size and a hex preview. Requires log_level = "debug".
+# Leave this off in production: it is verbose and meant for protocol debugging.
+debug_relay = false
+
+[security]
+# Connection attempts per second per IP, evaluated BEFORE any signature is
+# checked. This is the proxy's first line of defence.
+connect_rate_per_ip = 5
+
+# Burst allowed before rate limiting kicks in.
+connect_burst_per_ip = 10
+
+# How long an IP stays blocked once it exceeds the limit.
+block_duration = "30s"
+
+# Concurrent sessions per IP. 0 means unlimited.
+max_sessions_per_ip = 4
+
+# Proxy-level block list. Also manageable at runtime with ban/unban.
+banned_ips = []
+
+# One [[backends]] block per real server behind the proxy.
+# Picked by ascending priority; if the first one is down, the next is used.
+[[backends]]
+name = "main"
+address = "127.0.0.1:7778"
+priority = 0
+enabled = true
+
+# Consecutive failed handshakes before marking the backend as down.
+health_failures = 3
+
+# [[backends]]
+# name = "events"
+# address = "127.0.0.1:7779"
+# priority = 1
