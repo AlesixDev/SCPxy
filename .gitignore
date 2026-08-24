@@ -1,0 +1,6 @@
+/scpxy
+/scpxy.exe
+/scpxy-*
+/dist/
+/scripts/scpxy-linux-amd64
+config.toml
