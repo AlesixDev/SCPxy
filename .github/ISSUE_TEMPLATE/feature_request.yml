@@ -1,0 +1,31 @@
+name: Feature request
+description: Suggest something the proxy should be able to do
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Check the **Limitations** section of the README first — central listing registration, the PreAuth metadata parsing and the admin console under systemd are already known and tracked.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What are you trying to do that the proxy makes hard or impossible today?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like
+      description: The behaviour you want. If it needs configuration, sketch the TOML.
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives you considered
+    validations:
+      required: false

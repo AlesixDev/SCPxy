@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Deployment help
+    url: https://github.com/AlesixDev/SCPxy/blob/main/docs/installation.md
+    about: Installing the binary, systemd, firewall and passthrough on the backend.
+  - name: Protocol notes
+    url: https://github.com/AlesixDev/SCPxy/blob/main/docs/protocol-notes.md
+    about: What is known about the LiteNetLib wire format and how the relay handles it.
+  - name: Questions and ideas
+    url: https://github.com/AlesixDev/SCPxy/discussions
+    about: Anything that is not a bug report or a concrete feature request.

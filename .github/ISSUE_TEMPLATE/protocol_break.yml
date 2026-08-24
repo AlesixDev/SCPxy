@@ -1,0 +1,58 @@
+name: Protocol break after a game update
+description: The proxy stopped relaying after Northwood shipped a new version
+labels: ["bug", "protocol"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        SCPxy forwards the PreAuth raw, so a version bump on its own does not break it. What does break it is a change to the LiteNetLib transport — a new packet property, a different header layout, a changed handshake.
+
+        Read [protocol-notes.md](../blob/main/docs/protocol-notes.md) first: it describes what is already known about the wire format.
+
+  - type: input
+    id: game-version
+    attributes:
+      label: Game version
+      description: The SCP:SL version that broke it, and the last one that worked.
+      placeholder: broke on 14.1.0, worked on 14.0.2
+    validations:
+      required: true
+
+  - type: dropdown
+    id: symptom
+    attributes:
+      label: Symptom
+      options:
+        - The client never finishes connecting
+        - The client connects and is dropped shortly after
+        - Traffic relays but the game misbehaves
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: rejected
+    attributes:
+      label: Rejected packets
+      description: |
+        Set `log_level = "debug"` and `debug_relay = true`, reproduce, and paste every `rx REJECTED` line. An unknown `prop=N` is exactly what identifies a new packet type.
+      render: text
+    validations:
+      required: true
+
+  - type: textarea
+    id: wire
+    attributes:
+      label: Wire trace
+      description: The `wire` and `relay` lines around the failure, ideally from the handshake onwards.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: SCPxy version
+      placeholder: scpxy 0.1.0
+    validations:
+      required: true

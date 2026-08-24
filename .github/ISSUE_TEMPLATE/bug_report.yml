@@ -1,0 +1,76 @@
+name: Bug report
+description: Something in the proxy does not behave as documented
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before filing: run `scpxy check` against your configuration. It catches most misconfigurations on its own.
+
+        If players connect but the game server records `127.0.0.1` as their address, that is passthrough configuration, not a bug — see [installation.md](../blob/main/docs/installation.md#3-enable-passthrough-on-the-backend).
+
+  - type: textarea
+    id: what-happens
+    attributes:
+      label: What happens
+      description: What you observed, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Start the proxy with this config
+        2. Connect from the game client
+        3. …
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: SCPxy version
+      description: Output of `scpxy version`.
+      placeholder: scpxy 0.1.0
+    validations:
+      required: true
+
+  - type: dropdown
+    id: topology
+    attributes:
+      label: Topology
+      options:
+        - Proxy and game server on the same machine (loopback)
+        - Proxy and game server on different machines
+        - Multiple backends
+    validations:
+      required: true
+
+  - type: textarea
+    id: config
+    attributes:
+      label: Configuration
+      description: Your `config.toml`, with anything sensitive removed. Public IPs can be masked.
+      render: toml
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: |
+        Run with `log_level = "debug"` and paste the relevant part. For relay or handshake problems set `debug_relay = true` as well — it traces every packet.
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: environment
+    attributes:
+      label: OS and Go version
+      placeholder: Debian 12, go1.24.0 (or "prebuilt binary")
+    validations:
+      required: false
